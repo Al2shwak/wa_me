@@ -116,6 +116,7 @@ class OriginType(Type):
     business_initiated = "business_initiated"
     user_initiated = "user_initiated"
     referral_conversion = "referral_conversion"
+    service = "service"
 
 
 class ParameterType(Type):
