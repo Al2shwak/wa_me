@@ -79,7 +79,7 @@ class Text:
     """
 
     body: str
-    preview_url: bool = False
+    preview_url: bool = True
 
 
 @dataclass
