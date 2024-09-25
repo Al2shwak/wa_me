@@ -355,12 +355,14 @@ class Ctx:
         return self.send(message, mention=mention)
 
     def send_text(
-        self, content: str, *, mention: bool = False
+        self, content: str, recipient_id: Optional[str] = None, *, mention: bool = False
     ) -> Optional[responses.Response]:
-        if not self.recipient_id:
+        # Use the provided recipient_id, or fall back to self.recipient_id
+        if not recipient_id and not self.recipient_id:
             return None
+        # Use recipient_id if provided, else default to self.recipient_id
         message = messages.Message(
-            to=self.recipient_id,
+            to=recipient_id or self.recipient_id,
             text=messages.Text(body=content),
             type=enums.MessageType.text,
         )
