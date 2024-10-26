@@ -22,7 +22,7 @@ __all__ = (
 
 _log = logging.getLogger(__name__)
 
-API_VERSION: int = 15
+API_VERSION: int = 21
 
 
 class Route:
