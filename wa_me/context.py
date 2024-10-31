@@ -302,7 +302,7 @@ class Ctx:
                 body=messages.Body(text=text),
                 header=messages.Header(
                     type=enums.HeaderType.text,
-                    text=messages.Text(body=header_text),
+                    text=header_text,
                 )
                 if header_text
                 else None,
@@ -316,6 +316,9 @@ class Ctx:
     def send_quick_replies(
         self,
         text: str,
+        header_type: Optional[enums.HeaderType],
+        header_text: Optional[str],
+        footer_text: Optional[str],
         quick_replies: List[Dict[str, Any]],
         *,
         mention: bool = False,
@@ -332,6 +335,16 @@ class Ctx:
                     ]
                 ),
                 body=messages.Body(text=text),
+                header=messages.Header(
+                    type=header_type if header_type else enums.HeaderType.text,
+                    text=messages.Body(header_text) if header_type == enums.HeaderType.text else None,
+                    image=messages.Media(link=header_text) if header_type == enums.HeaderType.image else None,
+                    document=messages.Document(link=header_text) if header_type == enums.HeaderType.document else None,
+                    video=messages.Video(link=header_text) if header_type == enums.HeaderType.video else None,
+                )
+                if header_text
+                else None,
+                footer=messages.Footer(text=footer_text) if footer_text else None,
                 type=enums.InteractiveType.button,
             ),
             type=enums.MessageType.interactive,
